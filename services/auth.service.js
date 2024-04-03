@@ -42,13 +42,65 @@ class AuthService {
     }
     const payload = { sub: user.id };
     const token = jwt.sign(payload, config.jwtSecret, {expiresIn: '15min'});
-    const link = `http://localhost:3000/change-password?token=${token}`;
+    const link = `${config.frontendUrl}/change-password?token=${token}`;
     await service.update(user.id, {recoveryToken: token});
     const mail = {
       from: config.smtpEmail,
       to: `${user.email}`,
       subject: "Email para recuperar contraseña",
-      html: `<b>Ingresa a este link => ${link}</b>`,
+      html:`<html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Email de Recuperación de Contraseña</title>
+        <style>
+          /* Estilos CSS personalizados */
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+          }
+          .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          }
+          .logo {
+            text-align: center;
+            margin-bottom: 20px;
+          }
+          .logo img {
+            max-width: 150px;
+          }
+          .message {
+            text-align: center;
+            margin-bottom: 20px;
+          }
+          .link {
+            text-align: center;
+            margin-top: 20px;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="logo">
+            <img src="${config.logoUrl}" alt="Logo">
+          </div>
+          <div class="message">
+            <p>Estimado usuario,</p>
+            <p>Hemos recibido una solicitud para recuperar tu contraseña. Por favor, sigue el enlace a continuación para restablecer tu contraseña:</p>
+          </div>
+          <div class="link">
+            <a href="${link}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Restablecer Contraseña</a>
+          </div>
+        </div>
+      </body>
+      </html>`
     }
     const rta = await this.sendMail(mail);
     return rta;
@@ -74,8 +126,6 @@ class AuthService {
       const payload = jwt.verify(token, config.jwtSecret);
       const user = await service.findOne(payload.uid);
       var matches = await bcrypt.compare(password, user.password);
-      console.log(user.password);
-      console.log(matches);
       if (!matches) {
         throw boom.internal();
       }
@@ -91,8 +141,7 @@ class AuthService {
     try {
       const payload = jwt.verify(token, config.jwtSecret);
       const user = await service.findOne(payload.uid);
-      
-      return { isAdmin: user.roleId == 1 };
+      return { isAdmin: user.roleId == 0 };
     } catch (error) {
       throw boom.unauthorized();
     }
