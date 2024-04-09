@@ -24,7 +24,7 @@ router.get('/',  async (req, res, next) => {
 
 router.post('/',
 password.authenticate('jwt', {session: false}),
-checkRoles('admin'),
+checkRoles(1),
   validationHandler(createCustomerSchema, 'body'),
   async (req, res, next) => {
     try {

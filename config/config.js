@@ -8,6 +8,8 @@ const config = {
   jwtSecret: process.env.JWT_SECRET,
   smtpEmail: process.env.SMTP_EMAIL,
   smtpPassword: process.env.SMTP_PASSWORD,
+  frontendUrl:process.env.Frontend_URL,
+  logoUrl: process.env.LOGO_URL,
 }
 
 module.exports = { config };

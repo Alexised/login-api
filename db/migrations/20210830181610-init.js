@@ -40,7 +40,6 @@ module.exports = {
         field: 'role_id',
         allowNull: false,
         type: Sequelize.DataTypes.INTEGER,
-        unique: true,
         references: {
           model: ROLE_TABLE,
           key: 'id'
@@ -76,10 +75,6 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
         field: 'last_name',
       },
-      // phone: {
-      //   allowNull: true,
-      //   type: Sequelize.DataTypes.STRING,
-      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DataTypes.DATE,

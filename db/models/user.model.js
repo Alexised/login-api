@@ -28,7 +28,6 @@ const UserSchema = {
     field: 'role_id',
     allowNull: false,
     type: Sequelize.DataTypes.INTEGER,
-    unique: true,
     references: {
       model: ROLE_TABLE,
       key: 'id'
@@ -45,13 +44,6 @@ const UserSchema = {
 }
 
 class User extends Model {
-  // static associate(models) {
-  //   this.belongsTo(models.Role, { foreignKey: 'roleId' });
-  //   this.hasOne(models.Customer, {
-  //     as: 'customer',
-  //     foreignKey: 'userId'
-  //   });
-  // }
 static associate(models) {
     this.belongsTo(models.Role, {foreignKey: 'roleId'});
       this.hasOne(models.Customer, {
