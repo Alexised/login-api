@@ -91,10 +91,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT
       },
+      imageProduct2: {
+        allowNull: false,
+        type: Sequelize.TEXT
+      },
       idsignature: {
         field: 'idsignature',
         allowNull: false,
-        type: Sequelize.INTEGER, // Usar Sequelize.INTEGER en lugar de Sequelize.DataTypes.INTEGER
+        type: Sequelize.INTEGER, 
         references: {
           model: SIGNATURE_TABLE, // Assuming the model name for Signature is 'Signature'
           key: 'id' // Assuming the primary key of Signature is 'id'

@@ -93,6 +93,10 @@ imageProduct: {
     allowNull: false,
     type: DataTypes.TEXT
   },
+  imageProduct2: {
+    allowNull: false,
+    type: Sequelize.TEXT
+  },
   idsignature: {
     allowNull: false,
     type: DataTypes.INTEGER, // Assuming the ID of signature is an integer

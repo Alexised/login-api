@@ -33,7 +33,7 @@ async (req, res) => {
 
 // Obtener un formulario por ID
 router.get('/:id',
-password.authenticate('jwt', {session: false}),
+// password.authenticate('jwt', {session: false}),
 async (req, res) => {
   try {
     const { id } = req.params;

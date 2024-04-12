@@ -27,7 +27,8 @@ const createFillSchema = Joi.object({
   date: Joi.date().required(),
   reviewedBy: Joi.string().required(),
   idsignature: Joi.number().integer().required(),
-  imageProduct: Joi.string().required()
+  imageProduct: Joi.string().required(),
+  imageProduct2: Joi.string().required()
 });
 
 module.exports = { createFillSchema };
