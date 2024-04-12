@@ -57,7 +57,6 @@ validatorHandler(changePasswordAuthSchema, 'body'),
     try {
       var token = req.headers.authorization;
       token = token.substring(7);
-      console.log(token);
       const { password, newPassword } = req.body;
       const rta = await service.changePassword(token, password, newPassword);
       res.json(rta);
