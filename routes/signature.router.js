@@ -35,7 +35,6 @@ password.authenticate('jwt', {session: false}),
 checkRoles(1),
 async (req, res) => {
   try {
-    console.log("ACA")
     const id = req.params.id;
     const deletedSignature = await signatureService.deleteSignature(id);
     res.status(200).json(deletedSignature);

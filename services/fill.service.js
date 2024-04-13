@@ -3,11 +3,9 @@ const { models } = require('../libs/sequelize');
 
 async function createForm(formData) {
   try {
-    console.log("aca")
     const form = await models.Fill.create(formData);
     return form;
   } catch (error) {
-    console.log(error)
     throw new Error('Error al crear el formulario');
   }
 }
