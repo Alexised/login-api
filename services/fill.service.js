@@ -31,4 +31,23 @@ async function getFormById(id) {
   }
 }
 
-module.exports = { createForm, getAllForms, getFormById };
+async function deleteFormById(id) {
+  try {
+    const deletedCount = await models.Fill.destroy({
+      where: { id },
+    });
+
+    // Handle successful deletion (optional)
+    if (deletedCount === 0) {
+      console.log(`No form found with ID: ${id}`);
+    } else {
+      console.log(`Successfully deleted ${deletedCount} form(s)`);
+    }
+
+    return deletedCount; // Optional: Return the number of deleted rows
+  } catch (error) {
+    throw new Error('Error al eliminar el formulario');
+  }
+}
+
+module.exports = { createForm, getAllForms, getFormById,deleteFormById };

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createForm, getAllForms, getFormById } = require('../services/fill.service');
+const { createForm, getAllForms, getFormById, deleteFormById } = require('../services/fill.service');
 const { createFillSchema } = require('../schemas/fill.schema');
 const validationHandler = require('../middlewares/validator.handler');
 const password = require('passport');
@@ -43,5 +43,17 @@ async (req, res) => {
     res.status(404).json({ error: error.message });
   }
 });
+
+router.delete('/:id',
+  password.authenticate('jwt', {session: false}),
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      const form = await deleteFormById(id);
+      res.status(200).json(form);
+    } catch (error) { 
+      res.status(404).json({ error: error.message });
+    }
+  });
 
 module.exports = router;
